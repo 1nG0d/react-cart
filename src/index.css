@@ -1,14 +1,421 @@
-body {
+body{
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: "Open Sans", sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  color: #22292F;
+}
+.container{
+  width: 960px;
+}
+.btn{
+  border-radius: 0;
+}
+.btn.remove{
+  font-size: 14px;
+}
+.btn-primary{
+  background-color: #337ab7;
+  border-color: #2e6da4;
+}
+.btn-primary:hover{
+  background-color: #286090;
+  border-color: #204d74;
+}
+.p0{
+  padding: 0;
+}
+.pl0{
+  padding-left: 0;
+}
+.pr0{
+  padding-right: 0;
+}
+.vbottom{
+  vertical-align: bottom;
+}
+.empty_cart{
+  text-align: center;
+}
+.mackiev_header{
+  border-bottom: 19px solid #CC3333;
+}
+.mackiev_header a{
+  display: inline-block;
+  margin: 7px 0;
+}
+h2{
+  font-size: 41px;
+  text-align: left;
+  color: #22292F;
+  font-weight: bold;
+  margin-top: 30px;
+}
+#cart_wrapper h3{
+  text-align: center;
+  color: #22292F;
+}
+.pre-header{
+  color: #606F7B;
+  width: 815px;
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+.cart_header {
+  border-bottom: 2px solid #4c4c4c;
+}
+.cart_header h4{
+  text-transform: uppercase;
+  font-size: 23px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  margin-left: 10px;
+}
+.product_image img{
+  height: 128px;
+  width: 128px;
+}
+.product_image_supplementary{
+  /*margin-right: 20px;*/
+  display: inline-block;
+}
+.product_image_supplementary img{
+  height: 60px;
+  width: 60px;
+}
+.product_image{
+  text-align: center;
+}
+.description{
+  display: inline-block;
+  color: #3D4852;
+  font-size: 13px;
+}
+.regular_price span{
+  text-decoration: line-through;
+}
+.regular_price.without_discount span{
+  text-decoration: none;
+  display: inline-block;
+  color: #3D4852;
+  font-size: 16px;
+  font-weight: 600;
+}
+.main_product_label{
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 22px;
+  margin: 10px 0;
+}
+#continue_shopping{
+  width: 205px;
+  text-align: right;
+  position: relative;
+  height: 46px;
+  border: 1px solid #979797;
+  font-size: 18px;
+  color: #606F7B;
+}
+#continue_shopping:before{
+  position: absolute;
+  display: inline-block;
+  content: "\f104";
+  font-family: "FontAwesome";
+  left: 5px;
+  top: 3px;
+  font-size: 25px;
+}
+a#continue_shopping:hover{
+  border-radius: 2px;
+  background: rgba(74,144,227,0.1);
+}
+.currency{
+  font-weight: normal;
+}
+h5.supplementary_product_label{
+  display: inline-block;
+  font-weight: 600;
+  font-size: 14px;
+}
+.ftm-product{
+  padding: 15px 0 20px;
+  border-bottom: 1px dashed #B8C2CC;
+}
+.purchase_button{
+  margin-top: 40px;
+}
+.ftm-product:first-of-type{
+  margin-top: 10px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+.ftm-product:last-of-type{
+  border-bottom: none;
+
 }
+.subtotal{
+  padding: 25px 0;
+  border-top: 1px solid #606F7B;
+  border-bottom: 1px solid #606F7B;
+}
+
+.subtotal .sub_result{
+  font-size: 22px;
+}
+.subtotal #subtotal_price{
+  font-weight: 600;
+}
+.offer_price{
+  display: inline-block;
+  color: #3D4852;
+  font-size: 16px;
+  font-weight: 600;
+}
+.supplementary{
+  margin-top: 5px;
+}
+.remove{
+  padding: 0;
+  border: 0;
+}
+.remove svg{
+  vertical-align: bottom;
+}
+.btn.remove .trash:hover g{
+  fill: red;
+}
+#footer{
+  margin-top: 35px;
+  padding: 25px;
+  font-size: 12px;
+  color: #3D4852;
+  background: #F8FAFC;
+  border-top: solid 1px #DAE1E7;
+}
+#footer p {
+  margin-bottom: 3px;
+}
+#footer .smk-logo{
+  vertical-align: middle;
+}
+#footer p + p {
+  margin-bottom: 0;
+}
+@media screen and (-webkit-min-device-pixel-ratio: 2),
+(min--moz-device-pixel-ratio: 2),
+(-o-min-device-pixel-ratio: 2/1),
+(min-resolution: 2dppx),
+(min-resolution: 192dpi) {
+
+}
+/*QUANTITY SELECTORS*/
+.select_wrapper, .input_wrapper{
+  position: relative;
+  width: 90px;
+  height: 40px;
+  border: 1px solid #979797;
+  border-radius: 4px;
+  padding-left: 10px;
+}
+.input_wrapper{
+  padding-left: 0;
+  /*display: none;*/
+}
+.select_wrapper:hover{
+  border: 1px solid #6CA7EB;
+  -moz-box-shadow:    0 0 0 3px rgba(53, 130, 219, 0.2);
+  -webkit-box-shadow: 0 0 0 3px rgba(53, 130, 219, 0.2);
+  box-shadow:         0 0 0 3px rgba(53, 130, 219, 0.2);
+}
+.select_wrapper:before{
+  position: absolute;
+  content: "Quantity";
+  font-size: 12px;
+  color: #606F7B;
+}
+select.select_quantity{
+  position: absolute;
+  display: inline-block;
+  width: 72px;
+  height: 40px;
+  bottom: -11px;
+  border: none;
+  font-size: 16px;
+  background: none;
+  color: #22292F;
+  font-weight: 500;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+}
+select:focus,
+select:active,
+select:hover {
+  outline: none;
+}
+select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+}
+.select_wrapper:after{
+  position: absolute;
+  display: inline-block;
+  content: "\f107";
+  font-family: "FontAwesome";
+  right: 11px;
+  bottom: -5px;
+  font-size: 22px;
+  color: #606F7B;
+  z-index: -1;
+}
+input.input_quantity{
+  position: absolute;
+  display: inline-block;
+  width: 90px;
+  height: 40px;
+  bottom: -8px;
+  border: none;
+  font-size: 16px;
+  background: none;
+  color: #22292F;
+  font-weight: 500;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+}
+input[type=number].input_quantity::-webkit-inner-spin-button,
+input[type=number].input_quantity::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.input_wrapper label{
+  position: absolute;
+  top: 8px;
+  font-weight: 400;
+  font-size: 16px;
+  color: #606F7B;
+  left: 50%;
+  margin-left: -32px;
+}
+
+.input_wrapper input:focus + .form-control-placeholder,
+.input_wrapper input:valid + .form-control-placeholder{
+  font-size: 79%;
+  background: none;
+  transform: translate3d(20%, -38%, 0);
+}
+.update_quantity {
+  position: relative;
+  bottom: -40px;
+  width: 90px;
+}
+.update_quantity p{
+  text-align: center;
+  text-decoration: underline;
+  margin:0;
+  padding: 0;
+}
+.update_quantity p:hover{
+  cursor: pointer;
+  color:  #4A90E2;
+}
+/*COUPON*/
+.coupon_wrapper{
+  position: relative;
+  display: inline-block;
+  border: 1px solid #979797;
+  border-radius: 4px;
+  width: 127px;
+  height: 56px;
+}
+.coupon_wrapper input{
+  width: 100%;
+  margin-top: 20px;
+  font-weight: normal;
+  text-transform: uppercase;
+  color: #3D4852;
+  font-size: 16px;
+  border: none;
+}
+.coupon_wrapper .form-control,
+.input_wrapper .form-control{
+  padding: 6px;
+  border: none;
+  background: none;
+  outline: none;
+  box-shadow: none;
+}
+.coupon_wrapper .form-control-placeholder{
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  margin-left: -51px;
+  font-size: 16px;
+  color: #606F7B;
+  transition: all 400ms;
+  font-weight: 400;
+  box-shadow: none;
+}
+
+.coupon_wrapper input:focus + .form-control-placeholder,
+.coupon_wrapper input:valid + .form-control-placeholder{
+  font-size: 13px;
+  background: none;
+  transform: translate3d(11%, -63%, 0);
+  /*right: 20px;*/
+  /*top: 5px;*/
+}
+.in-focus{
+  border: 1px solid #6CA7EB;
+  -moz-box-shadow:    0 0 0 3px rgba(53, 130, 219, 0.2);
+  -webkit-box-shadow: 0 0 0 3px rgba(53, 130, 219, 0.2);
+  box-shadow:         0 0 0 3px rgba(53, 130, 219, 0.2);
+}
+.apply_coupon_wrapper p{
+  text-decoration: underline;
+  margin: 0;
+  padding: 0;
+  line-height: 14px;
+}
+.apply_coupon_wrapper p:hover{
+  cursor: pointer;
+  color:  #4A90E2;
+}
+
+/*PRE-LOADER*/
+#loader_bg{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  min-height: 900px;
+  background: rgba(0,0,0,0.7);
+  z-index: 999;
+}
+#load_spinner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -40px;
+  z-index: 1000;
+  /*border: 10px solid #f3f3f3;*/
+  /*border-radius: 50%;*/
+  /*border-top: 10px solid #3498db;*/
+  /*width: 80px;*/
+  /*height: 80px;*/
+  /*-webkit-animation: spin 2s linear infinite; !* Safari *!*/
+  /*animation: spin 2s linear infinite;*/
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+

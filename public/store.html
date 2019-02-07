@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Compatibility with Contextual Platform - Test Example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap/css/bootstrap.min.css">
+    <script src="/js/jquery/1.12.2/jquery.min.js?v=1" type="text/javascript"></script>
+</head>
+<style>
+    *{
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .page-content h1 {
+        font: 28px 'Webfont-myriadpro-bold', Arial, sans-serif;
+        text-align: center;
+        margin: 49px 0 26px;
+    }
+
+    .page-content h2 {
+        font: 20px Helvetica, Arial, sans-serif;
+    }
+
+    h2, h3 {
+        font-weight: normal;
+    }
+
+    h2.sub-header{
+        margin-bottom: 25px;
+        border-bottom: 1px solid #22292F;
+    }
+    .about-product .inner-info {
+        float: left;
+        width: 484px;
+    }
+
+    .about-product .inner-img {
+        float: left;
+        margin: 17px 34px 0 0;
+        width: 261px;
+    }
+
+    .outer-info-block div:first-child {
+        margin-left: 0;
+    }
+
+    .store-wrap, .options-title h2 {
+        line-height: 1.8em;
+    }
+
+
+    .product-wrap {
+        margin-top: 20px;
+    }
+
+
+    .product-block {
+        border: 1px solid #CDCDCD;
+        border-radius: 7px;
+        cursor: pointer;
+        float: left;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .col-1, .product-block {
+        margin-left: 21px;
+        width: 246px;
+    }
+
+    .product-block:first-child {
+        margin-left: 0;
+    }
+
+    .product-container {
+        padding: 20px 20px 15px;
+        text-align: center;
+    }
+
+    .product-container h3 {
+        font-size: 18px;
+        line-height: 1.2em;
+        text-align: center;
+        height: 85px;
+        margin: 16px auto 28px;
+    }
+
+    .product-container p {
+        color: #858585;
+        font: 14px 'Webfont-myriadpro-regular', Arial, sans-serif;
+    }
+
+    .product-container p,
+    .product-container h3 {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .product-container img {
+        margin: 0 auto 15px;
+    }
+    .product-block:hover{
+        cursor: pointer;
+    }
+
+    .product-block .price-wrap {
+        background-color: #F2F2F2;
+        border-radius: 0 0 5px 5px;
+        font: 20px/1.7em 'Webfont-myriadpro-semibold', Arial, sans-serif;
+        text-align: center;
+        padding: 8px 0 10px;
+    }
+
+    .product-block .offer-price {
+        font: 14px/1.5em 'Webfont-myriadpro-bold', Arial, sans-serif;
+        padding-right: 5px;
+        vertical-align: middle;
+        text-decoration: line-through;
+    }
+
+    .product-block-active {
+        background: #FBFDF1;
+        border: 1px solid #A9C71D;
+    }
+
+
+    .product-block-active .price-wrap {
+        background: #A9C71D;
+    }
+    #l_country{
+        width: 70%;
+    }
+
+    #footer{
+        margin-top: 35px;
+        padding: 25px;
+        font-size: 12px;
+        color: #3D4852;;
+        background: #F8FAFC;
+        border-top: solid 1px #DAE1E7;
+    }
+    #footer p {
+        margin-bottom: 3px;
+    }
+    #footer .smk-logo{
+        vertical-align: middle;
+    }
+    #footer p + p {
+        margin-bottom: 0;
+    }
+
+</style>
+<script>
+    $(function () {
+
+        $("input:checked").closest(".product-block").addClass("product-block-active");
+
+
+        $(".product-block").click(function(e){
+
+            var type = $(this).find("input").attr("type");
+            var id = $(this).find("input").attr("id");
+
+            switch (type){
+                case("radio"):{
+                    $(this).find("input").prop( "checked", true );
+                    $(".radioblock").find(".product-block-active").removeClass("product-block-active");
+                    $(this).addClass("product-block-active");
+                }
+                    break;
+                case("checkbox"):{
+                    if(!$(this).find("input").is(':checked')){
+                        $(this).find("input").prop( "checked", true );
+                        $("#" + id).closest(".product-block").addClass("product-block-active");
+                    } else {
+                        $(this).find("input").prop( "checked", false );
+                        $("#" + id).closest(".product-block").removeClass("product-block-active");
+                    }
+
+                }
+                    break;
+                default: return null;
+            }
+        })
+
+        $("#checkout").click(function(){
+            var inputArray = document.querySelectorAll("input"),
+                arr = [],
+                coupon = $("#l_coupon").val() || null,
+                country = ($("#l_country").val() && $("#l_country").val() !== "Other" ) ? $("#l_country").val() : "US";
+            inputArray.forEach(function (elem) {
+                if ($(elem).is(":checked")) {
+                    arr.push($(elem).attr("data-link"))
+                }
+            })
+
+            $.ajax({
+                type: "POST",
+                dataType: 'html',
+                url: "/store/ftm/store_playground/data_prepare.php",
+                data: {'arrayOfProducts': arr, 'country': country, 'coupon': coupon },
+                cache: false,
+                success: function(data) {
+                    window.location.href = "/store/ftm/store_playground/cart.html";
+                }
+            });
+        });
+    })
+</script>
+<body>
+    <div class="product-wrap container">
+        <h2 class="sub-header">Main Products</h2>
+        <div class="row radioblock">
+            <div class="col-xs-3">
+                <div class="product-block">
+                    <div class="product-container">
+                        <input type="radio" name="ftm_product_1" id="ftmdwn" data-link="family-tree-maker-2019-download" checked>
+                        <div class = 'info-wrapper' >
+                            <h3>
+                                Family Tree Maker 2019 Download
+                            </h3>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
+                                odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <div class="product-block">
+                    <div class="product-container">
+                        <input type="radio" name="ftm_product_1" id="ftmdvd" data-link="family-tree-maker-2019-dvd" >
+                        <div class = 'info-wrapper' >
+                            <h3>
+                                Family Tree Maker 2019 Download + DVD
+                            </h3>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
+                                odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <div class="product-block">
+                    <div class="product-container">
+                        <input type="radio" name="ftm_product_1" id="ftmusb" data-link="family-tree-maker-2019-usb">
+                        <div class = 'info-wrapper' >
+                            <h3>
+                                Family Tree Maker 2019 Download + USB
+                            </h3>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
+                                odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <h2 class="sub-header">Supplementary Product</h2>
+        <div class="row">
+            <div class="col-xs-3">
+                <div class="product-block">
+                    <div class="product-container">
+                        <input type="checkbox" name="supplementary_prod_1" id="ftm3pack" data-link="family-tree-maker-family-3-pack">
+                        <div class = 'info-wrapper' >
+                            <h3>
+                                Family Tree Maker 2019 - Family 3-Pack
+                            </h3>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
+                                odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <div class="product-block">
+                    <div class="product-container">
+                        <input type="checkbox" name="supplementary_prod_2" id="treeVaultMinimum" data-link="minimum-subscription-plan">
+                        <div class = 'info-wrapper' >
+                            <h3>
+                                Minimum subscription plan
+                            </h3>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
+                                odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <h2 class="sub-header">Gift Collection</h2>
+        <div class="row">
+            <div class="col-xs-3">
+                <div class="product-block">
+                    <div class="product-container">
+                        <input type="checkbox" name="ftm_product_3" id="edmark" data-link="edmark-thinkin-things-collection-1">
+                        <div class = 'info-wrapper' >
+                            <h3>
+                                Edmark thinkin things collection
+                            </h3>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
+                                odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <h2 class="sub-header"></h2>
+        <div class="row">
+            <div class="col-xs-3" >
+                <a id="toCart" href="cart.html" class="btn btn-primary btn-lg" style="display: none;">Go to Cart</a>
+            </div>
+            <div class="col-xs-3">
+                <div class="form-group">
+                    <label for="l_coupon">Input Coupon:</label> <br>
+                    <input type="text" id="l_coupon" name="l_coupon" value="MY-TEST-COUPON1">
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <div class="form-group">
+                    <label for="l_country">Select Country:</label>
+                    <select name="l_country" id="l_country">
+                        <option disabled>-- Select your country --</option>
+                        <option value="US" selected>US</option>
+                        <option value="GB">UK</option>
+                        <option value="AU">AU</option>
+                        <option value="CA">CA</option>
+                        <option value="Other">Other Country</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <a id="checkout" class="btn btn-primary btn-lg">Continue</a>
+            </div>
+
+        </div>
+    </div>
+    <div id="footer" >
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-9">
+                    <p>
+                        To get on our mailing list, click <a href="/mailing_list.html" target="_blank">here</a>. Any questions about ordering? Click <a href="/support.html" target="_blank">here</a> for further assistance.
+                    </p>
+                    <p>
+                        &copy; <?php year(); ?> The Software MacKiev Company.
+                    </p>
+                </div>
+                <div class="col-xs-3 text-right">
+                    <a href="/" class="smk-logo" target="_blank" title="The Software MacKiev Company">
+                        <img src="/images/logo_mc_gor.jpg" srcset="/images/smk_logo_@2x.png 2x" alt="The Software MacKiev Company">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</div>
+</html>
+
