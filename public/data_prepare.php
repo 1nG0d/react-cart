@@ -9,7 +9,7 @@ session_start();
 
 // Set session variables
 
-$_SESSION["test"] = "no";
+$_SESSION["result_obj"] = "no";
 class Product{
      public $productId;
      public $quantity;
@@ -81,6 +81,8 @@ $dependency_obj = (object)[
             echo json_encode($_SESSION["result_obj"]);
         }
 
+
+        echo json_encode($_SESSION["result_obj"]);
 
     }
 

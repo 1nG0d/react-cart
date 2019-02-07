@@ -3,16 +3,61 @@
   <head>
     <meta charset="utf-8" />
     <link rel="" href="" />
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
+
     <title>Compatibility with Contextual Platform</title>
   </head>
+  <script>
+        fetch("/data_prepare.php",
+            {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: "GET",
+
+            })
+            .then(res => console.log(res))
+            .then(result => console.log(result))
+
+
+  </script>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div class="mackiev_header">
+        <div class="container">
+            <a href="https://mackiev.com">
+                <img src="https://mackiev.com/images/mackiev_logo_1x.png" srcset="https://mackiev.com/images/mackiev_logo_1x.png 1x, https://mackiev.com/images/mackiev_logo_2x.png 2x" alt="mackiev.com">
+            </a>
+        </div>
+    </div>
     <div id="root">
 
+    </div>
+    <div id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-9">
+                    <p>
+                        To get on our mailing list, click <a href="https://mackiev.com/mailing_list.html" target="_blank">here</a>. Any questions about ordering? Click <a href="https://mackiev.com/support.html" target="_blank">here</a> for further assistance.
+                    </p>
+                    <p>
+                        © 2019 The Software MacKiev Company.
+                    </p>
+                </div>
+                <div class="col-3 text-right">
+                    <a href="/" class="smk-logo" target="_blank" title="The Software MacKiev Company">
+                        <img src="https://mackiev.com/images/logo_mc_gor.jpg" srcset="https://mackiev.com/images/smk_logo_@2x.png 2x" alt="The Software MacKiev Company">
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
   </body>
 </html>
